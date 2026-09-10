@@ -1,43 +1,32 @@
-import type { ReactNode } from "react";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import type { Metadata } from 'next';
+import { Geist, Geist_Mono } from 'next/font/google';
+import './globals.css';
 
-import { DevDeployBadge } from "@/components/DevDeployBadge";
-import { WarmingBar } from "@/components/WarmingBanner";
+const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] });
+const geistMono = Geist_Mono({ variable: '--font-geist-mono', subsets: ['latin'] });
 
-import "./globals.css";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const mono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
-  display: "swap",
-});
-
-export const metadata = {
-  title: "template-coders-game",
-  description: "A realtime multiplayer game starter for coders.kr.",
+export const metadata: Metadata = {
+  metadataBase: new URL('https://turbo-rush.coders.kr'),
+  title: 'Turbo Rush — Original Web Kart',
+  description: '드리프트와 부스터로 질주하는 오리지널 3D 웹 카트 레이싱 게임',
+  openGraph: {
+    title: 'Turbo Rush — Original Web Kart',
+    description: '드리프트와 부스터로 질주하는 오리지널 3D 웹 카트 레이싱 게임',
+    images: ['/og.png'],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Turbo Rush — Original Web Kart',
+    description: '절벽 위 서킷에서 펼쳐지는 오리지널 아케이드 카트 레이스',
+    images: ['/og.png'],
+  },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: ReactNode;
-}) {
-  // Fullscreen game chrome: the canvas owns the viewport, so no page
-  // scroll, no container, no header — the HUD overlays everything it
-  // needs. WarmingBar still floats on top for backend cold starts.
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${mono.variable}`}>
-      <body className="h-dvh overflow-hidden bg-[#0b0f1a]">
-        <WarmingBar />
-        <DevDeployBadge />
-        <main className="h-full w-full">{children}</main>
-      </body>
+    <html lang="ko">
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>{children}</body>
     </html>
   );
 }
